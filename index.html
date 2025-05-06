@@ -7,30 +7,33 @@
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #f0f2f5;
+            background-color: #2a2a2a; /* Dark pencil-like background */
             margin: 0;
             padding: 20px;
-            color: #333;
+            color: #fff;
         }
         .container {
             max-width: 400px;
             margin: 0 auto;
-            background: white;
+            background: #333;
             border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
             padding: 24px;
             text-align: left;
+            border: 1px solid #444;
         }
         .account {
             font-size: 15px;
-            color: #666;
+            color: #0af; /* Neon blue */
             margin-bottom: 24px;
             font-family: monospace;
             letter-spacing: -0.3px;
+            text-shadow: 0 0 5px rgba(0,170,255,0.5);
         }
         .section {
             margin-bottom: 16px;
             padding-bottom: 16px;
+            border-bottom: 1px solid #444;
         }
         .section-title {
             font-weight: 500;
@@ -39,33 +42,59 @@
             justify-content: space-between;
             align-items: center;
             font-size: 15px;
+            color: #fff;
         }
         .date-header {
-            background-color: #f5f8ff;
+            background-color: #222;
             padding: 14px;
             border-radius: 10px;
             margin-bottom: 20px;
-            border-left: 3px solid #4d7cff;
+            border-left: 3px solid #0af; /* Neon blue */
             font-size: 14px;
-            color: #3a3a3a;
+            color: #0af; /* Neon blue */
+            text-shadow: 0 0 5px rgba(0,170,255,0.3);
         }
         .checkmark {
-            color: #00d26a;
+            color: #0f0; /* Neon green */
             font-weight: bold;
             font-size: 18px;
+            text-shadow: 0 0 5px rgba(0,255,0,0.5);
         }
         .cross {
-            color: #ff3e3e;
+            color: #f00; /* Neon red */
             font-weight: bold;
             font-size: 18px;
+            text-shadow: 0 0 5px rgba(255,0,0,0.5);
+        }
+        .task-button {
+            background-color: #333;
+            color: #0af; /* Neon blue */
+            border: 1px solid #0af;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            margin-left: 10px;
+            transition: all 0.3s;
+        }
+        .task-button:hover {
+            background-color: rgba(0,170,255,0.2);
+            box-shadow: 0 0 8px rgba(0,170,255,0.4);
+        }
+        .verified-button {
+            background-color: #0a0;
+            color: #fff;
+            border: 1px solid #0f0;
+            cursor: default;
         }
         .divider {
             height: 1px;
-            background-color: #f0f0f0;
+            background-color: #444;
             margin: 20px 0;
         }
-        .button {
-            background-color: #ffd700;
+        .verify-button {
+            background-color: #ff0; /* Neon yellow */
             color: #000;
             border: none;
             padding: 14px 20px;
@@ -75,7 +104,11 @@
             font-size: 16px;
             font-weight: 600;
             margin-top: 10px;
-            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 15px rgba(255,255,0,0.5);
+            transition: all 0.3s;
+        }
+        .verify-button:hover {
+            box-shadow: 0 0 20px rgba(255,255,0,0.8);
         }
         .status {
             font-weight: 600;
@@ -83,9 +116,16 @@
             margin-top: 20px;
             display: flex;
             justify-content: space-between;
+            color: #0af; /* Neon blue */
         }
         .verified {
-            color: #00d26a;
+            color: #0f0; /* Neon green */
+            text-shadow: 0 0 5px rgba(0,255,0,0.3);
+        }
+        .task-description {
+            font-size: 13px;
+            color: #aaa;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -94,31 +134,40 @@
         <div class="account">Account: 0x173...6775</div>
         
         <div class="date-header">
-            Week of <span id="current-week"></span>
+            Date: <span id="current-date"></span>
         </div>
         
         <div class="section">
             <div class="section-title">
                 <span>Follow Task:</span>
-                <span class="checkmark">✓</span>
+                <div>
+                    <span class="checkmark">✓</span>
+                    <button class="task-button verified-button">Verified</button>
+                </div>
             </div>
-            <div style="font-size: 13px; color: #666;">Follow our Warpcast account</div>
+            <div class="task-description">Follow our Warpcast account (@yourusername)</div>
         </div>
         
         <div class="section">
             <div class="section-title">
                 <span>Payment Task:</span>
-                <span class="cross">✕</span>
+                <div>
+                    <span class="cross">✕</span>
+                    <button class="task-button" id="payment-button">Verify Payment</button>
+                </div>
             </div>
-            <div style="font-size: 13px; color: #666;">Send 0.05 ETH to verified wallet</div>
+            <div class="task-description">Send 0.05 ETH to verified wallet</div>
         </div>
         
         <div class="section">
             <div class="section-title">
-                <span>Active Account Task:</span>
-                <span class="checkmark">✓</span>
+                <span>Human Verification:</span>
+                <div>
+                    <span class="cross">✕</span>
+                    <button class="task-button" id="human-button">Verify</button>
+                </div>
             </div>
-            <div style="font-size: 13px; color: #666;">Verify your account is human</div>
+            <div class="task-description">Confirm you're not a bot</div>
         </div>
         
         <div class="divider"></div>
@@ -128,51 +177,56 @@
             <span class="verified">@username123</span>
         </div>
         
-        <button class="button">Verify Account</button>
+        <button class="verify-button">Verify Account</button>
     </div>
 
     <script>
-        // Set current week dates
+        // Set current date
         const now = new Date();
-        const startOfWeek = new Date(now);
-        startOfWeek.setDate(now.getDate() - now.getDay());
+        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+        document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', options);
         
-        const endOfWeek = new Date(now);
-        endOfWeek.setDate(now.getDate() + (6 - now.getDay()));
-        
-        const options = { month: 'short', day: 'numeric' };
-        const weekString = `${startOfWeek.toLocaleDateString('en-US', options)} – ${endOfWeek.toLocaleDateString('en-US', options)}`;
-        
-        document.getElementById('current-week').textContent = weekString;
-        
-        // In a real app, you would:
-        // 1. Check if user follows your Warpcast account (replace YOUR_WARPCAST_ID)
-        // 2. Verify payment was made to your wallet
-        // 3. Check if account is active (not a bot)
-        // 4. Display the actual username
-        
-        // Example verification logic would go here:
-        /*
-        async function checkVerification() {
-            // Check follow status
-            const follows = await checkWarpcastFollow('YOUR_WARPCAST_ID', userAddress);
-            document.querySelector('.follow-status').textContent = follows ? '✓' : '✕';
+        // Payment button functionality
+        document.getElementById('payment-button').addEventListener('click', function() {
+            // In real app, this would open payment modal
+            alert("Opening payment gateway to send 0.05 ETH...");
             
-            // Check payment
-            const paid = await checkPayment(userAddress);
-            document.querySelector('.payment-status').textContent = paid ? '✓' : '✕';
+            // Simulate successful payment verification
+            setTimeout(() => {
+                this.textContent = "Verified";
+                this.classList.add("verified-button");
+                this.previousElementSibling.textContent = "✓";
+                this.previousElementSibling.className = "checkmark";
+                checkAllVerified();
+            }, 2000);
+        });
+        
+        // Human verification button functionality
+        document.getElementById('human-button').addEventListener('click', function() {
+            // In real app, this would run CAPTCHA or other verification
+            alert("Running human verification...");
             
-            // Check account activity
-            const isActive = await checkAccountActivity(userAddress);
-            document.querySelector('.activity-status').textContent = isActive ? '✓' : '✕';
-            
-            // Update overall status
-            if (follows && paid && isActive) {
-                document.querySelector('.status span:last-child').textContent = 'Verified';
-                document.querySelector('.status span:last-child').className = 'verified';
+            // Simulate successful verification
+            setTimeout(() => {
+                this.textContent = "Verified";
+                this.classList.add("verified-button");
+                this.previousElementSibling.textContent = "✓";
+                this.previousElementSibling.className = "checkmark";
+                checkAllVerified();
+            }, 2000);
+        });
+        
+        function checkAllVerified() {
+            const allVerified = document.querySelectorAll('.verified-button').length === 3;
+            if (allVerified) {
+                document.querySelector('.verify-button').textContent = "Account Verified!";
+                document.querySelector('.verify-button').style.backgroundColor = "#0f0";
+                document.querySelector('.verify-button').style.boxShadow = "0 0 15px rgba(0,255,0,0.5)";
             }
         }
-        */
+        
+        // Follow verification would happen automatically when user opens mini-app
+        // if they came from your Warpcast profile link
     </script>
 </body>
 </html>
