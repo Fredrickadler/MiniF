@@ -5,127 +5,223 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warpcast Verification</title>
     <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-green: #00ff9d;
+            --neon-purple: #bd00ff;
+            --neon-pink: #ff00f7;
+            --neon-yellow: #fff700;
+            --dark-bg: #1a1a1a;
+        }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #2a2a2a; /* Dark pencil-like background */
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--dark-bg);
             margin: 0;
             padding: 20px;
-            color: #fff;
+            color: white;
         }
+        
         .container {
             max-width: 400px;
             margin: 0 auto;
-            background: #333;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            padding: 24px;
-            text-align: left;
-            border: 1px solid #444;
+            background: linear-gradient(145deg, #222222, #1e1e1e);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 25px;
+            border: 1px solid #333;
         }
+        
         .account {
             font-size: 15px;
-            color: #0af; /* Neon blue */
-            margin-bottom: 24px;
-            font-family: monospace;
+            color: var(--neon-blue);
+            margin-bottom: 25px;
+            font-family: 'Courier New', monospace;
             letter-spacing: -0.3px;
-            text-shadow: 0 0 5px rgba(0,170,255,0.5);
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
         }
-        .section {
-            margin-bottom: 16px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid #444;
+        
+        .date-header {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--neon-purple);
+            font-size: 15px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 8px rgba(0, 243, 255, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .section-title {
-            font-weight: 500;
-            margin-bottom: 8px;
+        
+        .date-header::before {
+            content: "📅";
+            font-size: 18px;
+        }
+        
+        .task {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+        
+        .task-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-size: 20px;
+        }
+        
+        .follow-icon {
+            background: linear-gradient(135deg, rgba(0,243,255,0.2), rgba(0,243,255,0.1));
+            color: var(--neon-blue);
+        }
+        
+        .payment-icon {
+            background: linear-gradient(135deg, rgba(189,0,255,0.2), rgba(189,0,255,0.1));
+            color: var(--neon-purple);
+        }
+        
+        .human-icon {
+            background: linear-gradient(135deg, rgba(0,255,157,0.2), rgba(0,255,157,0.1));
+            color: var(--neon-green);
+        }
+        
+        .task-content {
+            flex-grow: 1;
+        }
+        
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 5px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 15px;
-            color: #fff;
         }
-        .date-header {
-            background-color: #222;
-            padding: 14px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border-left: 3px solid #0af; /* Neon blue */
-            font-size: 14px;
-            color: #0af; /* Neon blue */
-            text-shadow: 0 0 5px rgba(0,170,255,0.3);
-        }
-        .checkmark {
-            color: #0f0; /* Neon green */
-            font-weight: bold;
-            font-size: 18px;
-            text-shadow: 0 0 5px rgba(0,255,0,0.5);
-        }
-        .cross {
-            color: #f00; /* Neon red */
-            font-weight: bold;
-            font-size: 18px;
-            text-shadow: 0 0 5px rgba(255,0,0,0.5);
-        }
-        .task-button {
-            background-color: #333;
-            color: #0af; /* Neon blue */
-            border: 1px solid #0af;
-            padding: 8px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            margin-left: 10px;
-            transition: all 0.3s;
-        }
-        .task-button:hover {
-            background-color: rgba(0,170,255,0.2);
-            box-shadow: 0 0 8px rgba(0,170,255,0.4);
-        }
-        .verified-button {
-            background-color: #0a0;
-            color: #fff;
-            border: 1px solid #0f0;
-            cursor: default;
-        }
-        .divider {
-            height: 1px;
-            background-color: #444;
-            margin: 20px 0;
-        }
-        .verify-button {
-            background-color: #ff0; /* Neon yellow */
-            color: #000;
-            border: none;
-            padding: 14px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-            font-weight: 600;
-            margin-top: 10px;
-            box-shadow: 0 0 15px rgba(255,255,0,0.5);
-            transition: all 0.3s;
-        }
-        .verify-button:hover {
-            box-shadow: 0 0 20px rgba(255,255,0,0.8);
-        }
-        .status {
-            font-weight: 600;
-            font-size: 15px;
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            color: #0af; /* Neon blue */
-        }
-        .verified {
-            color: #0f0; /* Neon green */
-            text-shadow: 0 0 5px rgba(0,255,0,0.3);
-        }
+        
         .task-description {
             font-size: 13px;
             color: #aaa;
-            margin-top: 5px;
+            line-height: 1.4;
+        }
+        
+        .verify-btn {
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(189, 0, 255, 0.3);
+        }
+        
+        .verify-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(189, 0, 255, 0.5);
+        }
+        
+        .verified-badge {
+            background: linear-gradient(135deg, var(--neon-green), #00cc82);
+            color: black;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .verified-badge::before {
+            content: "✓";
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            margin: 25px 0;
+        }
+        
+        .account-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .account-name {
+            color: var(--neon-blue);
+            font-weight: 600;
+        }
+        
+        .status-badge {
+            background: rgba(255,0,0,0.2);
+            color: #ff4d4d;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .status-badge.verified {
+            background: rgba(0,255,157,0.2);
+            color: var(--neon-green);
+        }
+        
+        .main-btn {
+            background: linear-gradient(135deg, var(--neon-yellow), #ffcc00);
+            color: black;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(255, 247, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .main-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(255, 247, 0, 0.6);
+        }
+        
+        .main-btn::after {
+            content: "→";
+            font-size: 18px;
+        }
+        
+        .progress-container {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));
+            border-radius: 3px;
+            width: 33%;
+            transition: width 0.5s ease;
         }
     </style>
 </head>
@@ -134,99 +230,117 @@
         <div class="account">Account: 0x173...6775</div>
         
         <div class="date-header">
-            Date: <span id="current-date"></span>
+            <span id="current-date"></span>
         </div>
         
-        <div class="section">
-            <div class="section-title">
-                <span>Follow Task:</span>
-                <div>
-                    <span class="checkmark">✓</span>
-                    <button class="task-button verified-button">Verified</button>
+        <div class="task">
+            <div class="task-icon follow-icon">👤</div>
+            <div class="task-content">
+                <div class="task-title">
+                    <span>Follow Verification</span>
+                    <div class="verified-badge">Verified</div>
+                </div>
+                <div class="task-description">Follow our Warpcast account to unlock exclusive features</div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="follow-progress"></div>
                 </div>
             </div>
-            <div class="task-description">Follow our Warpcast account (@yourusername)</div>
         </div>
         
-        <div class="section">
-            <div class="section-title">
-                <span>Payment Task:</span>
-                <div>
-                    <span class="cross">✕</span>
-                    <button class="task-button" id="payment-button">Verify Payment</button>
+        <div class="task">
+            <div class="task-icon payment-icon">💸</div>
+            <div class="task-content">
+                <div class="task-title">
+                    <span>Payment Verification</span>
+                    <button class="verify-btn" id="payment-btn">Verify Now</button>
+                </div>
+                <div class="task-description">Send 0.05 ETH to confirm your participation</div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="payment-progress"></div>
                 </div>
             </div>
-            <div class="task-description">Send 0.05 ETH to verified wallet</div>
         </div>
         
-        <div class="section">
-            <div class="section-title">
-                <span>Human Verification:</span>
-                <div>
-                    <span class="cross">✕</span>
-                    <button class="task-button" id="human-button">Verify</button>
+        <div class="task">
+            <div class="task-icon human-icon">🤖</div>
+            <div class="task-content">
+                <div class="task-title">
+                    <span>Human Verification</span>
+                    <button class="verify-btn" id="human-btn">Start Check</button>
+                </div>
+                <div class="task-description">Complete quick verification to prove you're human</div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="human-progress"></div>
                 </div>
             </div>
-            <div class="task-description">Confirm you're not a bot</div>
         </div>
         
         <div class="divider"></div>
         
-        <div class="status">
-            <span>Account:</span>
-            <span class="verified">@username123</span>
+        <div class="account-status">
+            <div class="account-name">@username123</div>
+            <div class="status-badge" id="status-badge">Pending</div>
         </div>
         
-        <button class="verify-button">Verify Account</button>
+        <button class="main-btn" id="main-btn">Complete Verification</button>
     </div>
 
     <script>
         // Set current date
         const now = new Date();
-        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+        const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
         document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', options);
         
         // Payment button functionality
-        document.getElementById('payment-button').addEventListener('click', function() {
-            // In real app, this would open payment modal
-            alert("Opening payment gateway to send 0.05 ETH...");
+        document.getElementById('payment-btn').addEventListener('click', function() {
+            // Simulate payment process
+            this.textContent = "Processing...";
+            this.style.opacity = "0.7";
+            this.disabled = true;
             
-            // Simulate successful payment verification
             setTimeout(() => {
-                this.textContent = "Verified";
-                this.classList.add("verified-button");
-                this.previousElementSibling.textContent = "✓";
-                this.previousElementSibling.className = "checkmark";
-                checkAllVerified();
+                // Success state
+                this.replaceWith(createVerifiedBadge());
+                document.getElementById('payment-progress').style.width = "100%";
+                updateOverallStatus();
             }, 2000);
         });
         
         // Human verification button functionality
-        document.getElementById('human-button').addEventListener('click', function() {
-            // In real app, this would run CAPTCHA or other verification
-            alert("Running human verification...");
+        document.getElementById('human-btn').addEventListener('click', function() {
+            // Simulate verification process
+            this.textContent = "Verifying...";
+            this.style.opacity = "0.7";
+            this.disabled = true;
             
-            // Simulate successful verification
             setTimeout(() => {
-                this.textContent = "Verified";
-                this.classList.add("verified-button");
-                this.previousElementSibling.textContent = "✓";
-                this.previousElementSibling.className = "checkmark";
-                checkAllVerified();
-            }, 2000);
+                // Success state
+                this.replaceWith(createVerifiedBadge());
+                document.getElementById('human-progress').style.width = "100%";
+                updateOverallStatus();
+            }, 1500);
         });
         
-        function checkAllVerified() {
-            const allVerified = document.querySelectorAll('.verified-button').length === 3;
-            if (allVerified) {
-                document.querySelector('.verify-button').textContent = "Account Verified!";
-                document.querySelector('.verify-button').style.backgroundColor = "#0f0";
-                document.querySelector('.verify-button').style.boxShadow = "0 0 15px rgba(0,255,0,0.5)";
-            }
+        // Initial progress (follow is already verified)
+        document.getElementById('follow-progress').style.width = "100%";
+        
+        function createVerifiedBadge() {
+            const badge = document.createElement('div');
+            badge.className = 'verified-badge';
+            badge.textContent = 'Verified';
+            return badge;
         }
         
-        // Follow verification would happen automatically when user opens mini-app
-        // if they came from your Warpcast profile link
+        function updateOverallStatus() {
+            const verifiedCount = document.querySelectorAll('.verified-badge').length;
+            const progress = (verifiedCount / 3) * 100;
+            
+            if (verifiedCount === 3) {
+                document.getElementById('status-badge').textContent = "Verified";
+                document.getElementById('status-badge').classList.add('verified');
+                document.getElementById('main-btn').textContent = "Access Granted";
+            }
+        }
     </script>
 </body>
 </html>
