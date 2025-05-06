@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warpcast Waitlist Rewards</title>
-    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
+    <title>Warpcast Waitlist Points</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
@@ -12,6 +11,7 @@
             margin: 0;
             padding: 20px;
             color: #333;
+            direction: rtl;
         }
         .container {
             max-width: 400px;
@@ -20,31 +20,45 @@
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             padding: 20px;
+            text-align: right;
         }
         .account {
             font-size: 14px;
             color: #666;
             margin-bottom: 20px;
+            font-family: monospace;
         }
         .section {
-            margin-bottom: 20px;
-            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
             padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
         }
         .section-title {
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-weight: 500;
+            margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
         }
         .points {
             color: #4CAF50;
+            font-weight: bold;
         }
         .total {
             font-weight: bold;
             margin: 20px 0;
             display: flex;
             justify-content: space-between;
+        }
+        .divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 15px 0;
+        }
+        .footer {
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 20px;
         }
         .button {
             background-color: #4CAF50;
@@ -55,197 +69,71 @@
             cursor: pointer;
             width: 100%;
             font-size: 16px;
-            margin-top: 10px;
+            margin-top: 15px;
         }
-        .button:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
-        .status {
-            margin-top: 20px;
-            padding: 10px;
+        .highlight {
+            background-color: #f0f9ff;
+            padding: 15px;
             border-radius: 8px;
-            display: none;
-        }
-        .success {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-        }
-        .error {
-            background-color: #ffebee;
-            color: #c62828;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-sizing: border-box;
-        }
-        .wallet-connect {
-            margin-bottom: 20px;
-        }
-        .connect-button {
-            background-color: #4285F4;
+            margin: 15px 0;
+            border-left: 3px solid #4CAF50;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="account" id="walletAddress">Not connected</div>
+        <div class="account">حساب: 0x173...6775</div>
         
-        <div class="wallet-connect">
-            <button class="button connect-button" id="connectWallet">Connect Wallet</button>
+        <div class="highlight">
+            <div>هفته ۱۰ فروردین - ۱۶ فروردین</div>
+            <div>محاسبه امتیازات کسب شده...</div>
         </div>
         
         <div class="section">
-            <div class="section-title">Waitlist Requirements</div>
-            <p>1. Follow our Warpcast account</p>
-            <p>2. Have an active Warpcast account</p>
-            <p>3. Send 0.05 ETH to the reward wallet</p>
+            <div class="section-title">
+                <span>فعالیت شما:</span>
+                <span class="points">+ 1</span>
+            </div>
         </div>
         
-        <div id="eligibilityForm">
-            <input type="text" id="warpcastUsername" placeholder="Your Warpcast username" required>
-            <button class="button" id="checkEligibility">Check Eligibility</button>
+        <div class="section">
+            <div class="section-title">
+                <span>فعالیت دعوت شده‌ها:</span>
+                <span class="points">+ 0</span>
+            </div>
         </div>
         
-        <div class="section" id="paymentSection" style="display: none;">
-            <div class="section-title">Payment</div>
-            <p>Send 0.05 ETH to the following address to complete registration:</p>
-            <p><strong id="rewardWallet">0x...</strong></p>
-            <button class="button" id="sendPayment">Send 0.05 ETH</button>
+        <div class="section">
+            <div class="section-title">
+                <span>دعوت‌های جدید:</span>
+                <span class="points">+ 0</span>
+            </div>
         </div>
         
-        <div class="status" id="statusMessage"></div>
+        <div class="total">
+            <span>مجموع:</span>
+            <span class="points">+ 1 امتیاز</span>
+        </div>
         
-        <div class="section" id="successSection" style="display: none;">
-            <div class="section-title">Your Status</div>
-            <p>✓ Eligible for airdrop</p>
-            <p>✓ Payment received</p>
-            <p>✓ Registered in waitlist</p>
+        <div class="divider"></div>
+        
+        <div class="footer">امتیازات هفتگی محاسبه شد</div>
+        
+        <div class="total">
+            <span>امتیازات شما:</span>
+            <span class="points">473 امتیاز</span>
+        </div>
+        
+        <button class="button">ثبت نام در لیست انتظار</button>
+        
+        <div class="footer" style="margin-top: 30px;">
+            شرایط شرکت:
+            <div style="margin-top: 10px;">
+                1. فالو کردن اکانت وارپ‌کست ما<br>
+                2. داشتن اکانت فعال در وارپ‌کست<br>
+                3. پرداخت 0.05 اتریوم به کیف پول مشخص شده
+            </div>
         </div>
     </div>
-
-    <script>
-        // Configuration
-        const rewardWalletAddress = "0xYOUR_REWARD_WALLET_ADDRESS"; // Replace with your actual wallet address
-        const requiredPayment = "0.05"; // ETH
-        
-        // DOM elements
-        const connectWalletBtn = document.getElementById('connectWallet');
-        const walletAddressEl = document.getElementById('walletAddress');
-        const checkEligibilityBtn = document.getElementById('checkEligibility');
-        const paymentSection = document.getElementById('paymentSection');
-        const sendPaymentBtn = document.getElementById('sendPayment');
-        const statusMessage = document.getElementById('statusMessage');
-        const successSection = document.getElementById('successSection');
-        const rewardWalletEl = document.getElementById('rewardWallet');
-        
-        // State
-        let provider;
-        let signer;
-        let userAddress;
-        let isEligible = false;
-        
-        // Initialize
-        rewardWalletEl.textContent = rewardWalletAddress;
-        
-        // Connect wallet
-        connectWalletBtn.addEventListener('click', async () => {
-            if (window.ethereum) {
-                try {
-                    provider = new ethers.providers.Web3Provider(window.ethereum);
-                    await provider.send("eth_requestAccounts", []);
-                    signer = provider.getSigner();
-                    userAddress = await signer.getAddress();
-                    
-                    // Display shortened address
-                    const shortenedAddress = `${userAddress.substring(0, 5)}...${userAddress.substring(userAddress.length - 4)}`;
-                    walletAddressEl.textContent = `Account: ${shortenedAddress}`;
-                    
-                    connectWalletBtn.textContent = "Connected";
-                    connectWalletBtn.disabled = true;
-                    
-                    showStatus("Wallet connected successfully", "success");
-                } catch (error) {
-                    showStatus("Error connecting wallet: " + error.message, "error");
-                }
-            } else {
-                showStatus("Please install MetaMask or another Ethereum wallet", "error");
-            }
-        });
-        
-        // Check eligibility
-        checkEligibilityBtn.addEventListener('click', async () => {
-            const username = document.getElementById('warpcastUsername').value.trim();
-            
-            if (!username) {
-                showStatus("Please enter your Warpcast username", "error");
-                return;
-            }
-            
-            if (!userAddress) {
-                showStatus("Please connect your wallet first", "error");
-                return;
-            }
-            
-            // In a real app, you would verify the user follows you on Warpcast here
-            // This is just a simulation
-            isEligible = true;
-            
-            if (isEligible) {
-                showStatus("You are eligible! Please complete the payment.", "success");
-                paymentSection.style.display = "block";
-            } else {
-                showStatus("You don't meet the eligibility requirements", "error");
-            }
-        });
-        
-        // Send payment
-        sendPaymentBtn.addEventListener('click', async () => {
-            try {
-                const tx = await signer.sendTransaction({
-                    to: rewardWalletAddress,
-                    value: ethers.utils.parseEther(requiredPayment)
-                });
-                
-                showStatus(`Payment sent! TX Hash: ${tx.hash}`, "success");
-                
-                // In a real app, you would wait for transaction confirmation here
-                // Then save the user to your database
-                saveEligibleUser(userAddress, document.getElementById('warpcastUsername').value.trim());
-                
-                paymentSection.style.display = "none";
-                successSection.style.display = "block";
-            } catch (error) {
-                showStatus("Payment failed: " + error.message, "error");
-            }
-        });
-        
-        // Helper function to show status messages
-        function showStatus(message, type) {
-            statusMessage.textContent = message;
-            statusMessage.className = "status " + type;
-            statusMessage.style.display = "block";
-            
-            // Hide after 5 seconds
-            setTimeout(() => {
-                statusMessage.style.display = "none";
-            }, 5000);
-        }
-        
-        // Simulate saving eligible users (in a real app, this would be a backend API call)
-        function saveEligibleUser(walletAddress, warpcastUsername) {
-            // In a real implementation, you would send this data to your backend
-            console.log("Saving eligible user:", { walletAddress, warpcastUsername });
-            
-            // For demo purposes, we'll store in localStorage
-            const eligibleUsers = JSON.parse(localStorage.getItem('eligibleUsers') || '[]');
-            eligibleUsers.push({ walletAddress, warpcastUsername, timestamp: new Date().toISOString() });
-            localStorage.setItem('eligibleUsers', JSON.stringify(eligibleUsers));
-        }
-    </script>
 </body>
 </html>
