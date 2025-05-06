@@ -3,140 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Points Dashboard</title>
+    <title>Warpcast Points</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600&display=swap');
-
         body {
-            background-color: #1a1a1a;
-            color: #fff;
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f5f5f7;
+            margin: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
+            min-height: 100vh;
         }
         .container {
-            background: linear-gradient(135deg, #2a2a2a, #1e1e1e);
-            padding: 25px;
-            border-radius: 20px;
-            width: 320px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 255, 255, 0.1) inset;
-            position: relative;
-            overflow: hidden;
+            width: 340px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 20px;
         }
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
-            animation: glow 10s infinite;
-            z-index: 0;
+        .account {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 22px;
+            font-family: monospace;
+            letter-spacing: -0.2px;
         }
-        .header {
-            text-align: center;
-            color: #ffcc00;
-            font-size: 20px;
+        .date-header {
+            background-color: #f5f8ff;
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            font-size: 14px;
+            color: #333333;
+            border-left: 3px solid #4d7cff;
+            line-height: 1.4;
+        }
+        .points-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .points-label {
+            font-weight: 500;
+            color: #333333;
+        }
+        .points-value {
+            color: #00a854;
             font-weight: 600;
-            text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00;
-            margin-bottom: 15px;
-            position: relative;
-            z-index: 1;
         }
-        .item {
-            margin: 12px 0;
-            font-size: 16px;
-            position: relative;
-            z-index: 1;
-        }
-        .label {
-            display: inline-block;
-            width: 130px;
-            color: #b0b0b0;
-            text-shadow: 0 0 5px #b0b0b0;
-        }
-        .value {
-            color: #fff;
-            text-shadow: 0 0 5px #fff;
-        }
-        .cyan {
-            color: #00ffff;
-            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-        }
-        .green {
-            color: #00ff00;
-            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
-        }
-        .yellow {
-            color: #ffff00;
-            text-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00;
-        }
-        .points {
-            color: #ffcc00;
-            font-size: 28px;
+        .total {
             font-weight: 600;
-            text-align: center;
-            margin-top: 20px;
-            text-shadow: 0 0 15px #ffcc00, 0 0 30px #ffcc00;
-            position: relative;
-            z-index: 1;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
         }
-        .button {
-            display: block;
+        .footer {
+            color: #666666;
+            font-size: 14px;
+            text-align: center;
+            margin: 18px 0 10px;
+        }
+        .close-btn {
             width: 100%;
             padding: 12px;
-            background: linear-gradient(90deg, #ffcc00, #ffdd44);
-            color: #1a1a1a;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 12px;
-            margin-top: 25px;
-            font-weight: 600;
-            box-shadow: 0 0 10px #ffcc00, 0 0 20px #ffdd44;
-            transition: transform 0.2s, box-shadow 0.2s;
-            position: relative;
-            z-index: 1;
+            border: 1px solid #e0e0e0;
+            background: white;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            color: #333333;
         }
-        .button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px #ffcc00, 0 0 30px #ffdd44;
-        }
-        @keyframes glow {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .arrow {
+            color: #4d7cff;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">Account: 0x173...6775</div>
-        <div class="item">&gt; Week of Apr 29 - May 6</div>
-        <div class="item">&gt; Counting earned points...</div>
-        <div class="item">
-            <span class="label cyan">Your Activity:</span>
-            <span class="value cyan">+1</span>
+        <div class="account">Account: 0x173...6775</div>
+        
+        <div class="date-header">
+            <span class="arrow">></span> Week of Apr 29 – May 6<br>
+            <span class="arrow">></span> Counting earned points...
         </div>
-        <div class="item">
-            <span class="label green">Referral Activity:</span>
-            <span class="value green">+0</span>
+        
+        <div class="points-row">
+            <span class="points-label">Your Activity:</span>
+            <span class="points-value">+ 1</span>
         </div>
-        <div class="item">
-            <span class="label yellow">New Referrals:</span>
-            <span class="value yellow">+0</span>
+        
+        <div class="points-row">
+            <span class="points-label">Referral Activity:</span>
+            <span class="points-value">+ 0</span>
         </div>
-        <div class="item">
-            <span class="label">Total:</span>
-            <span class="value">+1 Points</span>
+        
+        <div class="points-row">
+            <span class="points-label">New Referrals:</span>
+            <span class="points-value">+ 0</span>
         </div>
-        <div class="item">&gt; Weekly earnings counted</div>
-        <div class="points">You Have: 473 Points</div>
-        <a href="#" class="button">Close</a>
+        
+        <div class="total">
+            <span>Total:</span>
+            <span class="points-value">+ 1 Points</span>
+        </div>
+        
+        <div class="footer"><span class="arrow">></span> Weekly earnings counted</div>
+        
+        <div class="total">
+            <span>You Have:</span>
+            <span class="points-value">473 Points</span>
+        </div>
+        
+        <button class="close-btn">Close</button>
     </div>
 </body>
 </html>
