@@ -6,48 +6,53 @@
     <title>Warpcast Points</title>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #f5f5f7;
+            font-family: 'SF Pro Display', -apple-system, sans-serif;
+            background-color: #121212;
             margin: 0;
             padding: 20px;
-            color: #333;
+            color: #e0e0e0;
         }
         .container {
             max-width: 340px;
             margin: 0 auto;
-            background: white;
+            background: #1e1e1e;
             border-radius: 14px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 0 20px rgba(0, 170, 255, 0.15);
             padding: 20px;
+            border: 1px solid #333;
         }
         .account {
             font-size: 14px;
-            color: #666;
+            color: #00a8ff;
             margin-bottom: 22px;
-            font-family: monospace;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 8px rgba(0, 168, 255, 0.3);
         }
         .date-header {
-            background-color: #f0f5ff;
+            background-color: rgba(0, 80, 160, 0.2);
             padding: 12px 14px;
             border-radius: 10px;
             margin-bottom: 18px;
             font-size: 14px;
-            color: #333;
-            border-left: 3px solid #4d7cff;
+            color: #00d4ff;
+            border-left: 3px solid #00a8ff;
+            text-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
         }
         .points-row {
             display: flex;
             justify-content: space-between;
             margin-bottom: 14px;
             padding-bottom: 14px;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid #333;
         }
         .points-label {
             font-weight: 500;
+            color: #aaa;
         }
         .points-value {
-            color: #00a854;
+            color: #00ff9d;
             font-weight: 600;
+            text-shadow: 0 0 8px rgba(0, 255, 157, 0.3);
         }
         .total {
             font-weight: 600;
@@ -56,20 +61,32 @@
             justify-content: space-between;
         }
         .footer {
-            color: #666;
+            color: #00a8ff;
             font-size: 14px;
             text-align: center;
             margin: 18px 0 10px;
+            text-shadow: 0 0 5px rgba(0, 168, 255, 0.2);
         }
         .close-btn {
             width: 100%;
             padding: 12px;
             border: none;
-            background: #f0f0f0;
+            background: linear-gradient(90deg, #0066ff, #00a8ff);
             border-radius: 10px;
             margin-top: 10px;
             font-weight: 500;
             cursor: pointer;
+            color: white;
+            box-shadow: 0 0 15px rgba(0, 170, 255, 0.4);
+            transition: all 0.3s;
+        }
+        .close-btn:hover {
+            box-shadow: 0 0 25px rgba(0, 170, 255, 0.6);
+            transform: translateY(-1px);
+        }
+        .arrow {
+            color: #00d4ff;
+            margin-right: 5px;
         }
     </style>
 </head>
@@ -78,8 +95,8 @@
         <div class="account">Account: 0x173...6775</div>
         
         <div class="date-header">
-            > Week of Apr 29 – May 6<br>
-            > Counting earned points...
+            <span class="arrow">></span> Week of Apr 29 – May 6<br>
+            <span class="arrow">></span> Counting earned points...
         </div>
         
         <div class="points-row">
@@ -102,7 +119,7 @@
             <span class="points-value">+ 1 Points</span>
         </div>
         
-        <div class="footer">> Weekly earnings counted</div>
+        <div class="footer"><span class="arrow">></span> Weekly earnings counted</div>
         
         <div class="total">
             <span>You Have:</span>
